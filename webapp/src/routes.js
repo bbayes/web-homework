@@ -1,8 +1,9 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
 import { css } from '@emotion/core'
 import { Home } from './home'
 import { TransactionEntry } from './transaction-entry'
+import { TransactionTable } from './transaction-table'
 import { UserEntry } from './user-entry'
 
 function AppRouter () {
@@ -12,19 +13,47 @@ function AppRouter () {
         <nav css={navStyle}>
           <ul >
             <li>
-              <Link to='/'>Home</Link>
+              <NavLink
+                activeStyle={{ backgroundColor: 'lightblue' }}
+                style={{ textDecoration: 'none' }}
+                to='/home'
+              >
+                Home
+              </NavLink>
             </li>
             <li>
-              <Link to='/add-user'>Add User</Link>
+              <NavLink
+                activeStyle={{ backgroundColor: 'lightblue' }}
+                style={{ textDecoration: 'none' }}
+                to='/add-transaction'
+              >
+                +Transaction
+              </NavLink>
             </li>
             <li>
-              <Link to='/add-transaction'>Add Transaction</Link>
+              <NavLink
+                activeStyle={{ backgroundColor: 'lightblue' }}
+                style={{ textDecoration: 'none' }}
+                to='/transactions'
+              >
+                History
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                activeStyle={{ backgroundColor: 'lightblue' }}
+                style={{ textDecoration: 'none' }}
+                to='/add-user'
+              >
+                +User
+              </NavLink>
             </li>
           </ul>
         </nav>
         <div className='main-content' css={contentStyle}>
-          <Route component={Home} exact path='/' />
+          <Route component={Home} exact path='/home' />
           <Route component={UserEntry} exact path='/add-user' />
+          <Route component={TransactionTable} exact path='/transactions' />
           <Route component={TransactionEntry} exact path='/add-transaction' />
         </div>
       </div>
@@ -36,7 +65,6 @@ export default AppRouter
 
 const layoutStyle = css`
     display: grid;
-    grid-row-gap: 24px;
     padding: 8px;
 `
 
@@ -47,6 +75,10 @@ const navStyle = css`
       display: flex;
       flex-direction: row;
       list-style-type: none;
+  }
+
+  & > ul > li {
+
   }
   
   & > ul > li:not(:first-child) {
